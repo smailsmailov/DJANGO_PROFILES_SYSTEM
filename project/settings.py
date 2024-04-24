@@ -29,7 +29,6 @@ DEBUG = True
 ALLOWED_HOSTS = ["*"]
 
 SECURE_CROSS_ORIGIN_OPENER_POLICY = None
-AUTHENTICATION_BACKENDS = ( 'main.backends.SettingsBackend', )
 
 
 
@@ -43,8 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'phone_field',
-    "main",
+    'main',
 ]
 
 MIDDLEWARE = [
