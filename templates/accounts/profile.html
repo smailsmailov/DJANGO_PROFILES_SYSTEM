@@ -1,0 +1,57 @@
+{% extends 'base.html'%}
+{% block content%}
+<div class="d-flex justify-content-center align-items-center">
+    <form method="post" action="" id="main_form" style="width: 800px;">
+        {% csrf_token %}
+        <div class="row">
+            <lable for="username">Имя пользователя</lable>
+        </div>
+        <div class="row">
+            <input type="text" disabled placeholder="{{user.username}}" value="{{user.username}}" name="username" id="username">
+        </div>
+        <div class="row">
+            <lable for="first_name">Имя</lable>
+        </div>
+        <div class="row">
+            <input type="text" disabled placeholder="{{user.first_name}}" value="{{user.first_name}}" name="first_name" id="first_name">
+        </div>
+        <div class="row">
+            <lable for="last_name">Фамилия</lable>
+        </div>
+        <div class="row">
+            <input type="text" disabled placeholder="{{user.last_name}}" value="{{user.last_name}}" name="last_name" id="last_name">
+        </div>
+        <div class="row">
+            <lable for="phone">Телефон</lable>
+        </div>
+        <div class="row">
+            <input type="text" disabled placeholder="{{userUpdate.phone}}" value="{{userUpdate.phone}}" name="phone" id="phone">
+        </div>
+        <div class="row">
+            <lable for="type_of_account">Тип аккаунта</lable>
+        </div>
+        <div class="row">
+            <input type="text" disabled placeholder="{{userUpdate.get_type_of_account}}" name="type_of_account" id="type_of_account">
+        </div>
+        <button id="submit_btn" disabled  type="submit" class="btn btn-success fs-4 p-2 w-100 mt-3" style="height: 50px;">Отправить изменения </button>
+        <div type="open_editor" onclick="open_editor()" class="btn btn-info fs-4 p-2 w-100 mt-3" style="height: 50px;">Изменить значеия</button>
+        {% if messages %}
+        <ul class="messages" style="color:var(--bs-danger)">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </form>
+</div>
+
+<script>
+    function open_editor(){
+        $("#main_form :input").prop("disabled", false);
+        $("#type_of_account").prop("disabled" , true)
+        $("#phone").prop("disabled" , true)
+        $("#submit_btn").prop("disabled", false);
+    }
+</script>
+
+{% endblock %}

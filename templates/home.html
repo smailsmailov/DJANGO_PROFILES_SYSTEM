@@ -1,8 +1,4 @@
 {% extends 'base.html'%}
 {% block content%}
 
-<div class="d-flex justify-content-center align-items-center">
-    {% if request.user.is_authenticated %}Здраствуйте !'{{ request.user.username }}'
-    {% else %}Здраствуйте {{request.user}} {% endif %}
-</div>
 {% endblock %}

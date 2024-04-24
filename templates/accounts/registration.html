@@ -1,0 +1,129 @@
+{% extends 'base.html'%}
+{% block content%}
+
+<head>
+    <script>
+        $( function() {
+          $( "#date" ).datepicker();
+        } );
+    </script>
+</head>
+<style>
+    .radio_box{
+        min-width: 250px;
+        max-width: 250px;
+        height: 150px;
+        color:var(--bs-white);
+        background-color: var(--bs-gray-dark);
+        display: flex;
+        justify-content: left;
+        align-items: center;
+        cursor: pointer;
+        border-radius: 25px;
+    }
+    .radio_box > input{ /* HIDE RADIO */
+        visibility: hidden; /* Makes input not-clickable */
+        position: absolute; /* Remove input from document flow */
+    }
+    .radio_box > input + div{ /* DIV STYLES */
+        cursor:pointer;
+        border:2px solid transparent;
+    }
+    .radio_box > input:checked + div{ 
+        color:var(--bs-info);
+        transition: 0.5s ;
+    }
+    .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover{
+        background-color: var(--bs-success);
+    }
+    
+    .ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight{    
+        background-color: var(--bs-primary);
+        color: var(--bs-white);
+    }
+</style>
+<div class="d-flex justify-content-center align-items-center fs-4 w-100 h-100">
+
+    <form action="{{request.path}}" target="_self" method="post" style="width: 800px;" >
+        {% csrf_token %}
+        <div class="row">
+            <label for="phone">Телефон*</label>
+         </div>
+        <div class="row">
+            <input
+                    required
+                    type="text"
+                    name="phone"
+                    id="phone"
+                    placeholder="+7(000)000-00-00" />
+        </div>
+
+
+        <div class="row">
+            <lable for="username">Имя пользователя*</lable>
+        </div>
+        <div class="row"><input type="text" required name="username" id="username"></div>
+        <div class="row">
+            <lable for="first_name">Имя</lable>
+        </div>
+        <div class="row"><input type="text" name="first_name" id="first_name"></div>
+        <div class="row">
+            <lable for="last_name">Фамилия</lable>
+        </div>
+        <div class="row"><input type="text" name="last_name" id="last_name"></div>
+
+        <div class="row">
+            <lable for="date">Дата</lable>
+        </div>
+        <div class="row"><input type="text" name="date" id="date"></div>
+ 
+
+        <div class="row">
+            <lable for="date">Тип аккаунта* </lable>
+        </div>
+        <div class="d-flex flex-wrap justify-content-evenly">
+            {% for key , value  in type_of_account%}
+            
+            <label class=" radio_box">
+                <input class="form-check-input" required name="type_of_account" type="radio" id="inlineCheckbox2" value="{{key}}">
+                <div class="form-check-label" for="inlineCheckbox2">{{value}}</div>
+            </label>
+            {% endfor%}
+            <!-- <label class=" radio_box" >
+                <input class="form-check-input" name="type_of_account" type="radio" id="inlineCheckbox1" value="option1">
+                <div class="form-check-label" for="inlineCheckbox1">1</div>
+            </label> -->
+        </div>
+        
+
+        <div class="row">
+            <lable for="date">Пароль</lable>
+        </div>
+        <div class="row">
+            {{form.password}}
+        </div>
+ 
+ 
+        <button  type="submit" class="btn btn-success p-2 fs-4 w-100 mt-3">Отправить</button>
+        {% if messages %}
+        <ul class="messages" style="color:var(--bs-danger)">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </form>
+
+</div>
+
+<script>
+    var element = document.getElementById('phone');
+    var maskOptions = {
+        mask: '+{7}(000)000-00-00',
+        lazy: false
+    } 
+    var mask = new IMask(element, maskOptions);
+</script>
+
+{% endblock %}
+
